@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ravena Store | Passe Booyah</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050711;
+    color:#fff;
+}
+
+header{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    background:#080a14;
+    border-bottom:1px solid #191b2b;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    color:#fff;
+}
+
+.logo span{
+    color:#8b35ff;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ddd;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.btn-login{
+    background:#7b2cff;
+    color:white;
+    padding:12px 22px;
+    border-radius:9px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.hero{
+    min-height:520px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:60px 8%;
+    background:
+        radial-gradient(circle at 75% 45%,#44128c 0,transparent 35%),
+        linear-gradient(120deg,#070914,#0c0618);
+}
+
+.hero-text{
+    max-width:520px;
+}
+
+.hero h1{
+    font-size:50px;
+    line-height:1.05;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#8e3cff;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    background:linear-gradient(90deg,#7125ff,#9d43ff);
+    color:#fff;
+    padding:16px 30px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    border:0;
+    cursor:pointer;
+}
+
+.hero-card{
+    width:380px;
+    height:320px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#241047,#080912);
+    border:1px solid #5420a5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    box-shadow:0 0 50px #5515a555;
+}
+
+.hero-card h2{
+    font-size:35px;
+    color:#a64dff;
+}
+
+section{
+    padding:70px 8%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.title h2{
+    font-size:35px;
+}
+
+.title p{
+    color:#888;
+    margin-top:10px;
+}
+
+.product{
+    max-width:900px;
+    margin:auto;
+    background:#0d101d;
+    border:1px solid #25283a;
+    border-radius:18px;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.product-info{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.product-img{
+    width:110px;
+    height:110px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#401081,#9c35ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:bold;
+}
+
+.product h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.product p{
+    color:#999;
+}
+
+.price{
+    color:#a54cff;
+    font-size:25px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.feature{
+    background:#0c0f1b;
+    border:1px solid #202336;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.feature .icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:#888;
+    line-height:1.5;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#000b;
+    z-index:20;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    background:#0d101d;
+    width:100%;
+    max-width:480px;
+    border:1px solid #6324c9;
+    border-radius:20px;
+    padding:30px;
+}
+
+.modal-box h2{
+    margin-bottom:10px;
+}
+
+.modal-box p{
+    color:#999;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:16px;
+    border-radius:10px;
+    border:1px solid #303449;
+    background:#070914;
+    color:#fff;
+    outline:none;
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+input:focus{
+    border-color:#8b35ff;
+}
+
+.modal-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.cancel{
+    flex:1;
+    padding:15px;
+    border-radius:10px;
+    background:#191c2b;
+    color:#fff;
+    border:0;
+    cursor:pointer;
+}
+
+.confirm{
+    flex:2;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#777;
+    border-top:1px solid #171a28;
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:0 20px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:60px 20px;
+        gap:40px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .hero-card{
+        width:100%;
+        max-width:350px;
+    }
+
+    section{
+        padding:50px 20px;
+    }
+
+    .product{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .product-info{
+        align-items:flex-start;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        👑 RAVENA <span>STORE</span>
+    </div>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#como">Como Funciona</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+    <a href="#produtos" class="btn-login">
+        Comprar
+    </a>
+
+</header>
+
+
+<section class="hero" id="inicio">
+
+    <div class="hero-text">
+
+        <h1>
+            SUA LOJA DE
+            <span>PASSE BOOYAH</span>
+            MAIS CONFIÁVEL
+        </h1>
+
+        <p>
+            Compre seu Passe Booyah de forma rápida,
+            segura e com entrega automática.
+        </p>
+
+        <a href="#produtos" class="btn">
+            COMPRAR AGORA →
+        </a>
+
+    </div>
+
+    <div class="hero-card">
+
+        <div>
+            <div style="font-size:70px;">👑</div>
+            <h2>BOOYAH</h2>
+            <p style="color:#aaa;margin-top:10px;">
+                Entrega automática
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="produtos">
+
+    <div class="title">
+
+        <h2>NOSSOS PRODUTOS</h2>
+
+        <p>
+            Escolha seu produto e receba automaticamente.
+        </p>
+
+    </div>
+
+
+    <div class="product">
+
+        <div class="product-info">
+
+            <div class="product-img">
+                PASSE<br>BOOYAH
+            </div>
+
+            <div>
+
+                <h3>Passe Booyah</h3>
+
+                <p>
+                    Entrega automática após confirmação
+                    do pagamento.
+                </p>
+
+                <div class="price">
+                    R$ 3,50
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="btn" onclick="abrirCompra()">
+            COMPRAR
+        </button>
+
+    </div>
+
+</section>
+
+
+<section id="como">
+
+    <div class="title">
+
+        <h2>COMO FUNCIONA?</h2>
+
+        <p>
+            Compra simples e automática.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="icon">🎮</div>
+
+            <h3>1. Informe seu ID</h3>
+
+            <p>
+                Digite corretamente o ID da
+                sua conta.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">💳</div>
+
+            <h3>2. Faça o pagamento</h3>
+
+            <p>
+                Pague através do método
+                disponível na loja.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">🎁</div>
+
+            <h3>3. Receba automaticamente</h3>
+
+            <p>
+                Após o pagamento confirmado,
+                o sistema envia o Passe.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="contato">
+
+    <div class="title">
+
+        <h2>COMPRA SEGURA</h2>
+
+        <p>
+            Atendimento e suporte para nossos clientes.
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 Ravena Store — Todos os direitos reservados.
+
+</footer>
+
+
+<!-- MODAL DE COMPRA -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <h2>🎁 Comprar Passe Booyah</h2>
+
+        <p>
+            Informe o ID do jogador para continuar.
+        </p>
+
+        <label>ID do jogador</label>
+
+        <input
+            type="number"
+            id="playerId"
+            placeholder="Ex: 1323437613"
+        >
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel"
+                onclick="fecharCompra()">
+                Cancelar
+            </button>
+
+            <button
+                class="btn confirm"
+                onclick="continuarCompra()">
+                CONTINUAR →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function abrirCompra(){
+
+    document.getElementById("modal").style.display = "flex";
+
+}
+
+function fecharCompra(){
+
+    document.getElementById("modal").style.display = "none";
+
+}
+
+function continuarCompra(){
+
+    const id = document.getElementById("playerId").value.trim();
+
+    if(!id){
+
+        alert("Digite o ID do jogador.");
+
+        return;
+
+    }
+
+    if(id.length < 5){
+
+        alert("Digite um ID válido.");
+
+        return;
+
+    }
+
+    /*
+       IMPORTANTE:
+
+       Aqui NÃO chamamos a API diretamente.
+
+       O correto será:
+
+       SITE
+          ↓
+       SEU BACKEND
+          ↓
+       PAGAMENTO CONFIRMADO
+          ↓
+       API SOCKETSYNC
+    */
+
+    alert(
+        "ID recebido: " + id +
+        "\n\nPróximo passo: pagamento."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
